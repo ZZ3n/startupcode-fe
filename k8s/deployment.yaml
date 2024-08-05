@@ -15,5 +15,5 @@ spec:
         - name: frontend
           # 여러분의 image 주소를 입력해주세요.
           image: krmp-d2hub-idock.9rum.cc/dev-test/repo_58a5bbb753b2
-		  ports:
-		  - containerPort: 3000
+          ports:
+            - containerPort: 3000
