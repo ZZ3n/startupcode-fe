@@ -31,3 +31,4 @@ code {
 
 @import './routes/styles/Main.module.scss';
 @import './routes/styles/Form.module.scss';
+@import 'react-datepicker/dist/react-datepicker.css';
