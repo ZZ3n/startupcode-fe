@@ -93,7 +93,8 @@
   text-align: center;
   display: inline-block;
   transition: background-color 0.3s;
-
+  border: none;
+  
   &:hover {
     background-color: #85b515;
   }
