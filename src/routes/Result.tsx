@@ -10,10 +10,16 @@ interface ResultData {
   image: string;
   address: string;
   phone: string;
+  // temperature?: string;
+  // rainfallProbability?: string;
+  // windDirection?: string;
+  // uvIndex?: string;
+  // activities?: string;
+  // facilities?: string;
 }
 
 const Result: React.FC = () => {
-  const [resultData, setResultData] = useState<any>(null);
+  const [resultData, setResultData] = useState<ResultData | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,11 +27,11 @@ const Result: React.FC = () => {
       try {
         const response = await axios.get('/api/result');
         if (response.data.code === 200) {
-          const bodyString = response.data.body.string;
-          const [location, image, address, phone] = bodyString.split('\n').map((item: string) => item.split(': ')[1]);
+          const bodyString = response.data.body.chat_message;
+          const [image, location, address, phone] = bodyString.split('\n').map((item: string) => item.split(': ')[1]);
           setResultData({
-            location,
             image,
+            location,
             address,
             phone,
           });
@@ -63,7 +69,8 @@ const Result: React.FC = () => {
                   "제주특별자치도 제주시 한림읍 협재리 2497-1"}
               </p>
               <p>전화번호: {resultData?.phone || "064-728-3981"}</p>
-              <p>현재 기온: {resultData?.temperature || "약 24°C"}</p>
+
+              {/* <p>현재 기온: {resultData?.temperature || "약 24°C"}</p>
               <p>강수 확률: {resultData?.rainfallProbability || "낮음"}</p>
               <p>
                 풍향:{" "}
@@ -80,7 +87,8 @@ const Result: React.FC = () => {
               <p>
                 편의시설:{" "}
                 {resultData?.facilities || "샤워 시설, 탈의실, 화장실"}
-              </p>
+              </p> */}
+
             </div>
             <button className={styles["result-button"]} onClick={handleHome}>
               홈으로
