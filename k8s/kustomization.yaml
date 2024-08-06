@@ -4,8 +4,3 @@ resources:
   - service.yaml
   - ingress.yaml
   - backend.yaml
- configMapGenerator:
-  - name: config-yaml
-    files:
-      - configs/chatgpt.yaml
-# SECRET 이나 configMap 이라는거를 만들어서 띄우는 환경마다 설정 파일등을 변경할 수 있습니다.
