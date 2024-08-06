@@ -3,18 +3,21 @@ import { useNavigate } from "react-router-dom";
 import styles from "./styles/Chat.module.scss";
 import characterImage from "../assets/char.png";
 import useStore from "../store/store";
+import LogModal from "../components/modals/LogModal";
 
 const Chat: React.FC = () => {
   const [botCount, setBotCount] = useState<number>(0);
-  const [userCount, setUserCount] = useState<number>(0);
-  const { thread_id, chat_list } = useStore();
-  const [message, setMessage] = useState<string>(chat_list[botCount]);
+  const [userCount, setUserCount] = useState<number>(-1);
+  const { thread_id, bot_chat_list, user_chat_list } = useStore();
+  const [message, setMessage] = useState<string>(bot_chat_list[botCount]);
+  const addToBotChatList = useStore((state) => state.addToBotChatList);
+  const addToUserChatList = useStore((state) => state.addToUserChatList);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    setMessage(chat_list[botCount]);
+    setMessage(bot_chat_list[botCount]);
   }, [botCount]);
 
-  const addToChatList = useStore((state) => state.addToChatList);
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +32,7 @@ const Chat: React.FC = () => {
       chat_message: inputValue,
     };
 
-    addToChatList(data.chat_message);
+    addToUserChatList(data.chat_message);
     setUserCount(userCount + 1);
 
     try {
@@ -44,7 +47,7 @@ const Chat: React.FC = () => {
         throw new Error("Network response was not ok " + response.statusText);
       }
       const responseData = await response.json();
-      addToChatList(responseData.body.chat_message);
+      addToBotChatList(responseData.body.chat_message);
       setBotCount(botCount + 1);
       if (responseData.body.isend === "true") {
         navigate("/result");
@@ -59,6 +62,13 @@ const Chat: React.FC = () => {
     navigate(0);
   };
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div>
       <div className="background">
@@ -93,6 +103,14 @@ const Chat: React.FC = () => {
           </div>
         </div>
       </div>
+      <LogModal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        messages={bot_chat_list.map((msg, index) => ({
+          role: index % 2 === 0 ? "user" : "ai",
+          message: msg,
+        }))}
+      />
     </div>
   );
 };

@@ -12,7 +12,7 @@ import useStore from "../store/store";
 
 const Form: React.FC = () => {
   const setThreadId = useStore((state) => state.setThreadId);
-  const addToChatList = useStore((state) => state.addToChatList);
+  const addToBotChatList = useStore((state) => state.addToBotChatList);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -64,7 +64,7 @@ const Form: React.FC = () => {
       if (response.data.code === 200) {
         toast.success(response.data.message);
         setThreadId(response.data.body.thread_id);
-        addToChatList(response.data.body.chat_message);
+        addToBotChatList(response.data.body.chat_message);
         navigate("/chat");
       }
     } catch (error) {
