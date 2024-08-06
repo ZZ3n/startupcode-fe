@@ -7,13 +7,12 @@ import useStore from "../store/store";
 const Chat: React.FC = () => {
   const [count, setCount] = useState<number>(0);
   const { thread_id, chat_list } = useStore();
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>(chat_list[count]);
 
   useEffect(() => {
     setMessage(chat_list[count]);
   }, [Math.floor(count / 2)]);
 
-  const setThreadId = useStore((state) => state.setThreadId);
   const addToChatList = useStore((state) => state.addToChatList);
   // const thread_id = useStore((state) => state.thread_id);
   const [inputValue, setInputValue] = useState<string>("");
@@ -47,7 +46,7 @@ const Chat: React.FC = () => {
       const responseData = await response.json();
       addToChatList(responseData.body.chat_message);
       setCount(count + 1);
-      if (responseData.body.isend) {
+      if (responseData.body.isend === "true") {
         navigate("/result");
       }
     } catch (error) {
