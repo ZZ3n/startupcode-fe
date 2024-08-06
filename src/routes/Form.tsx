@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import TagModal from "../components/modals/InterestModal";
 import Button from "../components/Button";
 import styles from "./styles/Form.module.scss";
@@ -10,6 +12,9 @@ const Form: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [name, setName] = useState('');
+  const [people, setPeople] = useState('');
+  const [age, setAge] = useState('');
   const navigate = useNavigate();
 
   const handleRequestClose = (
@@ -30,6 +35,10 @@ const Form: React.FC = () => {
   };
 
   const handleSubmit = () => {
+    if (!people || !age || selectedTags.length === 0 || !selectedDate) {
+      toast.error('모든 정보를 입력해 주세요.');
+      return;
+    }
     navigate("/chat");
   };
 
@@ -41,16 +50,38 @@ const Form: React.FC = () => {
           <div className={styles["form-container"]}>
             <div className={styles["button-container"]}>
               <Button />
+              <ToastContainer 
+                position="top-center" 
+                autoClose={5000} 
+                hideProgressBar={false} 
+                newestOnTop={false} 
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+              />
             </div>
+            <input
+              type="text"
+              placeholder="이름"
+              className={styles["form-field"]}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
             <input
               type="text"
               placeholder="인원"
               className={styles["form-field"]}
+              value={people}
+              onChange={(e) => setPeople(e.target.value)}
             />
             <input
               type="text"
               placeholder="나이"
               className={styles["form-field"]}
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
             />
             <div
               className={`${styles["form-field"]} ${styles["tag-input"]}`}

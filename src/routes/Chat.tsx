@@ -32,7 +32,6 @@ const Chat: React.FC = () => {
   };
 
   const navigate = useNavigate();
-
   const handleSubmit = () => {
     navigate('/result');
   };
