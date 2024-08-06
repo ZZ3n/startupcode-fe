@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast, ToastContainer } from 'react-toastify';
@@ -34,12 +35,33 @@ const Form: React.FC = () => {
     });
   };
 
-  const handleSubmit = () => {
-    if (!people || !age || selectedTags.length === 0 || !selectedDate) {
+  const handleSubmit = async () => {
+    if (!name || !people || !age || selectedTags.length === 0 || !selectedDate) {
       toast.error('모든 정보를 입력해 주세요.');
       return;
     }
-    navigate("/chat");
+
+    const requestData = {
+      name,
+      people: Number(people),
+      age: Number(age),
+      interests: selectedTags,
+      date: selectedDate.toISOString().split('T')[0]
+    };
+
+    try {
+      const response = await axios.post('/api/user', requestData);
+      if (response.data.code === 200) {
+        toast.success(response.data.message);
+        navigate("/chat");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
+    }
   };
 
   return (
