@@ -10,8 +10,6 @@
 # Icon must end with two \r
 Icon
 
-# krampoline
-k8s/configs
 
 # Thumbnails
 ._*
