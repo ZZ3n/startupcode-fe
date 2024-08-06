@@ -111,14 +111,18 @@ const Form: React.FC = () => {
               placeholder="인원"
               className={styles["form-field"]}
               value={people}
-              onChange={(e) => setPeople(e.target.value)}
+              onChange={(e) =>
+                setPeople(e.target.value ? Number(e.target.value) : "")
+              }
             />
             <input
               type="text"
               placeholder="나이"
               className={styles["form-field"]}
               value={age}
-              onChange={(e) => setAge(e.target.value)}
+              onChange={(e) =>
+                setAge(e.target.value ? Number(e.target.value) : "")
+              }
             />
             <div
               className={`${styles["form-field"]} ${styles["tag-input"]}`}
