@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.background {
+  position: relative;
+  min-height: 100vh;
+}
+
+.pc-background {
+  background: url('./assets/pcBG.png') no-repeat center center fixed;
+  background-size: cover;
+  filter: blur(5px); /* 흐림 효과 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+@import './routes/styles/Main.module.scss';
+@import './routes/styles/Form.module.scss';
+@import 'react-datepicker/dist/react-datepicker.css';
