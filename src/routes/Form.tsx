@@ -1,4 +1,5 @@
 import React, { useState }from 'react';
+import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import TagModal from '../components/modals/InterestModal';
@@ -8,6 +9,7 @@ const Form: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const navigate = useNavigate();
 
   const handleRequestClose = (event: React.MouseEvent | React.KeyboardEvent) => {
     setIsModalOpen(false);
@@ -26,6 +28,10 @@ const Form: React.FC = () => {
 
   const handleTagRemove = (tag: string) => {
     setSelectedTags(selectedTags.filter((t) => t !== tag));
+  };
+
+  const handleSubmit = () => {
+    navigate('/chat');
   };
 
   return (
@@ -61,7 +67,9 @@ const Form: React.FC = () => {
               dateFormat="yyyy/MM/dd"
             />
           </div>
-          <button className={styles['form-button']}>
+          <button 
+            className={styles['form-button']}
+            onClick={handleSubmit}>
               선택 완료
           </button>
         </div>
