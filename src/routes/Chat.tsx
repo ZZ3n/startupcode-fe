@@ -4,6 +4,7 @@ import styles from "./styles/Chat.module.scss";
 import characterImage from "../assets/char.png";
 import useStore from "../store/store";
 import LogModal from "../components/modals/LogModal";
+import Loading from "../components/Loading";
 
 interface ChatMessage {
   role: "user" | "ai";
@@ -18,6 +19,7 @@ const Chat: React.FC = () => {
   const addToBotChatList = useStore((state) => state.addToBotChatList);
   const addToUserChatList = useStore((state) => state.addToUserChatList);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setMessage(bot_chat_list[botCount] || "");
@@ -36,6 +38,7 @@ const Chat: React.FC = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     const data = {
       thread_id: thread_id,
       chat_message: inputValue,
@@ -57,6 +60,7 @@ const Chat: React.FC = () => {
         throw new Error("Network response was not ok " + response.statusText);
       }
       const responseData = await response.json();
+
       addToBotChatList(responseData.body.chat_message);
       setBotCount(botCount + 1);
       if (responseData.body.isend === "true") {
@@ -64,28 +68,9 @@ const Chat: React.FC = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      // 요청이 실패한 경우 navigate를 호출하지 않음
+    } finally {
+      setIsLoading(false);
     }
-    //   try {
-    //     // 목 데이터 사용
-    //     const response = {
-    //       data: {
-    //         body: {
-    //           chat_message: "목 데이터로부터의 응답입니다.",
-    //           isend: "false"
-    //         }
-    //       }
-    //     };
-
-    //     addToBotChatList(response.data.body.chat_message);
-    //     setBotCount(botCount + 1);
-    //     if (response.data.body.isend === "true") {
-    //       navigate("/result");
-    //     }
-    //   } catch (error) {
-    //     console.error("Error:", error);
-    //   }
-    // };
   };
 
   const handleRestart = () => {
@@ -116,6 +101,7 @@ const Chat: React.FC = () => {
   };
   return (
     <div>
+      {isLoading && <Loading />}
       <div className="background">
         <div className="pc-background"></div>
         <div className={styles["chat-background"]}>
