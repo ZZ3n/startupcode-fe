@@ -18,6 +18,8 @@ const Form: React.FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [name, setName] = useState<string>("");
+
+  const { bot_chat_list } = useStore();
   const [people, setPeople] = useState<number | string>("");
   const [age, setAge] = useState<number | string>("");
   const navigate = useNavigate();
@@ -60,12 +62,16 @@ const Form: React.FC = () => {
     };
 
     try {
-      const response = await axios.post("/api/user", requestData);
+      const response = await axios.post(
+        "http://127.0.0.1:5000/api/user",
+        requestData
+      );
       const responseData = await response.data;
       if (responseData.code === 200) {
         toast.success(responseData.message);
         setThreadId(responseData.body.thread_id);
         addToBotChatList(responseData.body.chat_message);
+        console.log(bot_chat_list[0]);
         navigate("/chat");
       }
     } catch (error) {
@@ -75,28 +81,6 @@ const Form: React.FC = () => {
         toast.error("An unexpected error occurred.");
       }
     }
-  //   try {
-  //     // 목 데이터 사용
-  //     const response = {
-  //       data: {
-  //         code: 200,
-  //         message: "200 OK",
-  //         body: {
-  //           thread_id: "mock_thread_id",
-  //           chat_message: "목 데이터로부터의 첫 응답입니다.",
-  //         },
-  //       },
-  //     };
-      
-  //     if (response.data.code === 200) {
-  //       toast.success(response.data.message);
-  //       setThreadId(response.data.body.thread_id);
-  //       addToBotChatList(response.data.body.chat_message);
-  //       navigate("/chat");
-  //     }
-  //   } catch (error) {
-  //     toast.error("An unexpected error occurred.");
-  //   }
   };
 
   return (
