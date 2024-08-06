@@ -12,7 +12,16 @@ interface TagModalProps {
 }
 
 const InterestModal: React.FC<TagModalProps> = ({ isOpen, onRequestClose, handleTagClick, selectedTags }) => {
-  const tags = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  const tags = ['자연', 
+                '액티비티', 
+                '포토스팟', 
+                '맛집', 
+                '카페', 
+                '전시,공연', 
+                '체험', 
+                '관광명소', 
+                '축제'
+              ];
 
   return (
     <Modal
