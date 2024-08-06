@@ -6,7 +6,7 @@ import useStore from "../store/store";
 import LogModal from "../components/modals/LogModal";
 
 interface ChatMessage {
-  role: 'user' | 'ai';
+  role: "user" | "ai";
   message: string;
 }
 
@@ -66,26 +66,26 @@ const Chat: React.FC = () => {
       console.error("Error:", error);
       // 요청이 실패한 경우 navigate를 호출하지 않음
     }
-  //   try {
-  //     // 목 데이터 사용
-  //     const response = {
-  //       data: {
-  //         body: {
-  //           chat_message: "목 데이터로부터의 응답입니다.",
-  //           isend: "false"
-  //         }
-  //       }
-  //     };
-      
-  //     addToBotChatList(response.data.body.chat_message);
-  //     setBotCount(botCount + 1);
-  //     if (response.data.body.isend === "true") {
-  //       navigate("/result");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
+    //   try {
+    //     // 목 데이터 사용
+    //     const response = {
+    //       data: {
+    //         body: {
+    //           chat_message: "목 데이터로부터의 응답입니다.",
+    //           isend: "false"
+    //         }
+    //       }
+    //     };
+
+    //     addToBotChatList(response.data.body.chat_message);
+    //     setBotCount(botCount + 1);
+    //     if (response.data.body.isend === "true") {
+    //       navigate("/result");
+    //     }
+    //   } catch (error) {
+    //     console.error("Error:", error);
+    //   }
+    // };
   };
 
   const handleRestart = () => {
@@ -103,7 +103,7 @@ const Chat: React.FC = () => {
   const combineMessages = () => {
     const combined: ChatMessage[] = [];
     const maxLength = Math.max(user_chat_list.length, bot_chat_list.length);
-  
+
     for (let i = 0; i < maxLength; i++) {
       if (i < bot_chat_list.length) {
         combined.push({ role: "ai", message: bot_chat_list[i] });

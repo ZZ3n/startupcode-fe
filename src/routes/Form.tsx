@@ -61,10 +61,11 @@ const Form: React.FC = () => {
 
     try {
       const response = await axios.post("/api/user", requestData);
-      if (response.data.code === 200) {
-        toast.success(response.data.message);
-        setThreadId(response.data.body.thread_id);
-        addToBotChatList(response.data.body.chat_message);
+      const responseData = await response.data;
+      if (responseData.code === 200) {
+        toast.success(responseData.message);
+        setThreadId(responseData.body.thread_id);
+        addToBotChatList(responseData.body.chat_message);
         navigate("/chat");
       }
     } catch (error) {
