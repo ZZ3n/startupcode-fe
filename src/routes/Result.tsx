@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './styles/Result.module.scss';
 import characterImage from '../assets/char.png'; // 캐릭터 이미지 파일 경로 수정
@@ -6,7 +7,8 @@ import placeholderImage from '../assets/placeholder.png'; // 임시 추천 장�
 
 const Result: React.FC = () => {
   const [resultData, setResultData] = useState<any>(null);
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     // 공공데이터 API 호출
     const fetchData = async () => {
@@ -20,6 +22,10 @@ const Result: React.FC = () => {
 
     fetchData();
   }, []);
+
+  const handleHome = () => {
+    navigate('/form');
+  };
   return (
         <div>
       <div className="background">
@@ -41,7 +47,9 @@ const Result: React.FC = () => {
               <p>가능 액티비티: {resultData?.activities || '바나나보트, 제트스키, 패들보드 등'}</p>
               <p>편의시설: {resultData?.facilities || '샤워 시설, 탈의실, 화장실'}</p>
             </div>
-            <button className={styles['result-button']}>
+            <button 
+              className={styles['result-button']}
+              onClick={handleHome}>
               홈으로
             </button>
             <img src={characterImage} alt="Character" className={styles['result-character']} />
