@@ -26,10 +26,6 @@ const Form: React.FC = () => {
     });
   };
 
-  const handleTagRemove = (tag: string) => {
-    setSelectedTags(selectedTags.filter((t) => t !== tag));
-  };
-
   const handleSubmit = () => {
     navigate('/chat');
   };
@@ -50,12 +46,7 @@ const Form: React.FC = () => {
                 <span className={styles['placeholder-text']}>관심사</span>
               ) : (
                 selectedTags.map((tag) => (
-                  <span key={tag} className={styles['tag']}>
-                    {tag} <span className={styles['tag-remove']} onClick={(e) => {
-                      e.stopPropagation();
-                      handleTagRemove(tag);
-                    }}>x</span>
-                  </span>
+                  <span key={tag} className={styles['tag']}>{tag}</span>
                 ))
               )}
             </div>
@@ -73,7 +64,12 @@ const Form: React.FC = () => {
               선택 완료
           </button>
         </div>
-        <TagModal isOpen={isModalOpen} onRequestClose={handleRequestClose} handleTagClick={handleTagClick} selectedTags={selectedTags} />
+        <TagModal 
+          isOpen={isModalOpen}
+          onRequestClose={handleRequestClose}
+          handleTagClick={handleTagClick}
+          selectedTags={selectedTags}
+        />
       </div>
     </div>
   );

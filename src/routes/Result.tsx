@@ -8,24 +8,11 @@ import placeholderImage from '../assets/placeholder.png'; // 임시 추천 장�
 const Result: React.FC = () => {
   const [resultData, setResultData] = useState<any>(null);
   const navigate = useNavigate();
-  
-  useEffect(() => {
-    // 공공데이터 API 호출
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('YOUR_PUBLIC_DATA_API_URL');
-        setResultData(response.data);
-      } catch (error) {
-        console.error('Error fetching data from public API:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handleHome = () => {
     navigate('/form');
   };
+  
   return (
         <div>
       <div className="background">
