@@ -81,29 +81,6 @@ const Form: React.FC = () => {
         toast.error("An unexpected error occurred.");
       }
     }
-    //   try {
-    //     // 목 데이터 사용
-    //     const response = {
-    //       data: {
-    //         code: 200,
-    //         message: "200 OK",
-    //         body: {
-    //           thread_id: "mock_thread_id",
-    //           chat_message: "목 데이터로부터의 응답입니다.",
-    //         },
-    //       },
-    //     };
-
-    //     if (response.data.code === 200) {
-    //       toast.success(response.data.message);
-    //       setThreadId(response.data.body.thread_id);
-    //       addToBotChatList(response.data.body.chat_message);
-    //       navigate("/chat");
-    //     }
-    //   } catch (error) {
-    //     toast.error("An unexpected error occurred.");
-    //   }
-    // };
   };
 
   return (
