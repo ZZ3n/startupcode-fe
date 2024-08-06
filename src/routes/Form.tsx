@@ -9,6 +9,7 @@ import TagModal from "../components/modals/InterestModal";
 import Button from "../components/Button";
 import styles from "./styles/Form.module.scss";
 import useStore from "../store/store";
+import Loading from "../components/Loading";
 
 const Form: React.FC = () => {
   const setThreadId = useStore((state) => state.setThreadId);
@@ -18,10 +19,9 @@ const Form: React.FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [name, setName] = useState<string>("");
-
-  const { bot_chat_list } = useStore();
   const [people, setPeople] = useState<number | string>("");
   const [age, setAge] = useState<number | string>("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleRequestClose = (
@@ -61,17 +61,15 @@ const Form: React.FC = () => {
       date: selectedDate.toISOString().split("T")[0],
     };
 
+    setIsLoading(true);
+
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:5000/api/user",
-        requestData
-      );
-      const responseData = await response.data;
+      const response = await axios.post("/api/user", requestData);
+      const responseData = response.data;
       if (responseData.code === 200) {
         toast.success(responseData.message);
         setThreadId(responseData.body.thread_id);
         addToBotChatList(responseData.body.chat_message);
-        console.log(bot_chat_list[0]);
         navigate("/chat");
       }
     } catch (error) {
@@ -80,11 +78,14 @@ const Form: React.FC = () => {
       } else {
         toast.error("An unexpected error occurred.");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div>
+      {isLoading && <Loading />}
       <div className="background">
         <div className="pc-background"></div>
         <div className={styles["form-background"]}>
@@ -164,4 +165,5 @@ const Form: React.FC = () => {
     </div>
   );
 };
+
 export default Form;
