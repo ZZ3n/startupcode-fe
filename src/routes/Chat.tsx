@@ -14,7 +14,7 @@ interface ChatMessage {
 const Chat: React.FC = () => {
   const [botCount, setBotCount] = useState<number>(0);
   const [userCount, setUserCount] = useState<number>(-1);
-  const { thread_id, bot_chat_list, user_chat_list } = useStore();
+  const { thread_id, bot_chat_list, user_chat_list, setResultString } = useStore();
   const [message, setMessage] = useState<string>("");
   const addToBotChatList = useStore((state) => state.addToBotChatList);
   const addToUserChatList = useStore((state) => state.addToUserChatList);
@@ -64,6 +64,7 @@ const Chat: React.FC = () => {
       addToBotChatList(responseData.body.chat_message);
       setBotCount(botCount + 1);
       if (responseData.body.isend === "true") {
+        setResultString(responseData.body.chat_message)
         navigate("/result");
       }
     } catch (error) {

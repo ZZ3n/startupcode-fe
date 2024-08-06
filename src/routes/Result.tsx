@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import styles from "./styles/Result.module.scss";
+import useStore from "../store/store";
 import characterImage from "../assets/char.png"; // 캐릭터 이미지 파일 경로 수정
 import placeholderImage from "../assets/placeholder.png"; // 임시 추천 장소 이미지
 
@@ -12,34 +13,12 @@ interface ResultData {
 
 const Result: React.FC = () => {
   const [resultData, setResultData] = useState<ResultData | null>(null);
+  const { result_string } = useStore();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:4000/api/chat', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        const data = await response.json();
-        if (data.code === 200) {
-          const { chat_message, isend } = data.body;
-          setResultData({
-            chat_message,
-            isend,
-          });
-        } else {
-          console.error(data.message);
-        }
-      } catch (error) {
-        console.error("Error fetching result data", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  useEffect(()=> {
+    console.log(result_string);
+  }, [])
 
   const handleHome = () => {
     navigate("/");
@@ -52,8 +31,8 @@ const Result: React.FC = () => {
         <div className={styles["result-background"]}>
           <div className={styles["result-container"]}>
             <div className={styles["result-info"]}>
-              {resultData ? (
-                <ReactMarkdown className={styles["markdown-content"]}>{resultData.chat_message}</ReactMarkdown>
+              {result_string ? (
+                <ReactMarkdown className={styles["markdown-content"]}>{result_string}</ReactMarkdown>
               ) : (
                 <p>Loading...</p>
               )}
