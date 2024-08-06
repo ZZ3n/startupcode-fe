@@ -82,7 +82,7 @@ const Form: React.FC = () => {
   //         message: "200 OK",
   //         body: {
   //           thread_id: "mock_thread_id",
-  //           chat_message: "목 데이터로부터의 응답입니다.",
+  //           chat_message: "목 데이터로부터의 첫 응답입니다.",
   //         },
   //       },
   //     };
@@ -96,7 +96,6 @@ const Form: React.FC = () => {
   //   } catch (error) {
   //     toast.error("An unexpected error occurred.");
   //   }
-  // };
   };
 
   return (

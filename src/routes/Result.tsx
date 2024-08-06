@@ -27,8 +27,7 @@ const Result: React.FC = () => {
       try {
         const response = await axios.get('/api/result');
         if (response.data.code === 200) {
-          const bodyString = response.data.body.chat_message;
-          const [image, location, address, phone] = bodyString.split('\n').map((item: string) => item.split(': ')[1]);
+          const { location, image, address, phone } = response.data.body;
           setResultData({
             image,
             location,
@@ -62,13 +61,9 @@ const Result: React.FC = () => {
               className={styles["result-image"]}
             />
             <div className={styles["result-info"]}>
-              <p>장소: {resultData?.location || "협제해수욕장"}</p>
-              <p>
-                위치:{" "}
-                {resultData?.address ||
-                  "제주특별자치도 제주시 한림읍 협재리 2497-1"}
-              </p>
-              <p>전화번호: {resultData?.phone || "064-728-3981"}</p>
+              <p>{resultData?.location || "여행지: 협제해수욕장"}</p>
+              <p>{resultData?.address || "위치: 제주특별자치도 제주시 한림읍 협재리 2497-1"}</p>
+              <p>{resultData?.phone || "전화번호: 064-728-3981"}</p>
 
               {/* <p>현재 기온: {resultData?.temperature || "약 24°C"}</p>
               <p>강수 확률: {resultData?.rainfallProbability || "낮음"}</p>
