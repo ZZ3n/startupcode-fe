@@ -38,10 +38,10 @@ const Form: React.FC = () => {
       <div className="background">
         <div className="pc-background"></div>
         <div className={styles["form-background"]}>
-          <div className={styles["form-header"]}>
-            <Button />
-          </div>
           <div className={styles["form-container"]}>
+            <div className={styles["button-container"]}>
+              <Button />
+            </div>
             <input
               type="text"
               placeholder="인원"

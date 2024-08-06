@@ -18,6 +18,11 @@
   justify-content: center;
   align-items: center;
 }
+.button-container {
+  position: absolute;
+  top: -90%;
+  left: -35%;
+}
 .form-field {
   background-color: rgba(0, 0, 0, 0.7);
   color: white;

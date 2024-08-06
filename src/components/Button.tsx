@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../routes/styles/Button.module.scss";
+import styles from "./Button.module.scss";
 import buttonImage from "../assets/left.png";
 
 const Button: React.FC = () => {
