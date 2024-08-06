@@ -9,7 +9,7 @@ const Chat: React.FC = () => {
   const [botCount, setBotCount] = useState<number>(0);
   const [userCount, setUserCount] = useState<number>(-1);
   const { thread_id, bot_chat_list, user_chat_list } = useStore();
-  const [message, setMessage] = useState<string>(bot_chat_list[0]);
+  const [message, setMessage] = useState<string>("");
   const addToBotChatList = useStore((state) => state.addToBotChatList);
   const addToUserChatList = useStore((state) => state.addToUserChatList);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,6 +17,10 @@ const Chat: React.FC = () => {
   useEffect(() => {
     setMessage(bot_chat_list[botCount]);
   }, [botCount]);
+
+  useEffect(() => {
+    setMessage(bot_chat_list[0]);
+  }, []);
 
   const [inputValue, setInputValue] = useState<string>("");
 
@@ -34,6 +38,7 @@ const Chat: React.FC = () => {
 
     addToUserChatList(data.chat_message);
     setUserCount(userCount + 1);
+    setInputValue("");
 
     try {
       const response = await fetch("/api/chat", {
