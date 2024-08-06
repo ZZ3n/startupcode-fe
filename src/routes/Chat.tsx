@@ -1,30 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles/Chat.module.scss";
 import characterImage from "../assets/char.png";
+import useStore from "../store/store";
 
 const Chat: React.FC = () => {
-  const [messages, setMessages] = useState<string[]>([
-    `등산을 좋아하시는군요! 
-그럼 한라산은 꼭 가보셔야겠네요.
+  const [count, setCount] = useState<number>(0);
+  const { thread_id, chat_list } = useStore();
+  const [message, setMessage] = useState<string>("");
 
-한라산에는 다양한 등산 코스가 있는데, 
-정상인 백록담까지 올라가는 코스와 중간 터를 탐방하는 코스 등이 있어요.
+  useEffect(() => {
+    setMessage(chat_list[count]);
+  }, [count]);
 
-혹시 어떤 난이도의 등산을 선호하시나요?
+  const setThreadId = useStore((state) => state.setThreadId);
+  const addToChatList = useStore((state) => state.addToChatList);
+  // const thread_id = useStore((state) => state.thread_id);
 
-초보자를 위한 코스도 좋고, 조금 도전적인 코스도 괜찮으신가요?
+  const handleThreadChange = (id: string) => {
+    setThreadId(id);
+  };
 
-등산을 좋아하시는군요! 
-그럼 한라산은 꼭 가보셔야겠네요.
-
-한라산에는 다양한 등산 코스가 있는데, 
-정상인 백록담까지 올라가는 코스와 중간 터를 탐방하는 코스 등이 있어요.
-
-혹시 어떤 난이도의 등산을 선호하시나요?
-
-초보자를 위한 코스도 좋고, 조금 도전적인 코스도 괜찮으신가요?`,
-  ]);
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,9 +28,40 @@ const Chat: React.FC = () => {
   };
 
   const navigate = useNavigate();
-  const handleSubmit = () => {
-    navigate("/result");
+
+  const handleSubmit = async () => {
+    const data = {
+      thread_id: thread_id,
+      message: inputValue,
+    };
+
+    try {
+      const response = await fetch("https://your-api-endpoint.com/api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok " + response.statusText);
+      }
+
+      const responseData = await response.json();
+      console.log("Success:", responseData);
+
+      setThreadId(responseData.thread_id);
+      addToChatList(responseData.message);
+
+      // 요청이 성공한 경우에만 navigate 호출
+      navigate("/result");
+    } catch (error) {
+      console.error("Error:", error);
+      // 요청이 실패한 경우 navigate를 호출하지 않음
+    }
   };
+
   const handleRestart = () => {
     navigate(0);
   };
@@ -45,12 +72,13 @@ const Chat: React.FC = () => {
         <div className="pc-background"></div>
         <div className={styles["chat-background"]}>
           <div className={styles["chat-container"]}>
-            {messages.map((message, index) => (
-              <div key={index} className={styles["chat-message"]}>
-                <img src={characterImage} alt="Character" />
-                <p>{message}</p>
-              </div>
-            ))}
+            {/* {messages.map((message, index) => ( */}
+            {/* <div key={index} className={styles["chat-message"]}> */}
+            <div className={styles["chat-message"]}>
+              <img src={characterImage} alt="Character" />
+              <p>{message}</p>
+            </div>
+            {/* ))} */}
             <input
               type="text"
               className={styles["chat-input"]}
