@@ -6,7 +6,7 @@ import useStore from "../store/store";
 import LogModal from "../components/modals/LogModal";
 
 interface ChatMessage {
-  role: 'user' | 'ai';
+  role: "user" | "ai";
   message: string;
 }
 
@@ -117,8 +117,12 @@ const Chat: React.FC = () => {
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         messages={[
-          ...user_chat_list.map((msg) => ({ role: "user", message: msg } as ChatMessage)),
-          ...bot_chat_list.map((msg) => ({ role: "ai", message: msg } as ChatMessage))
+          ...user_chat_list.map(
+            (msg) => ({ role: "user", message: msg } as ChatMessage)
+          ),
+          ...bot_chat_list.map(
+            (msg) => ({ role: "ai", message: msg } as ChatMessage)
+          ),
         ]}
       />
     </div>
