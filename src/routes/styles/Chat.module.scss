@@ -19,6 +19,7 @@
     max-width: 500px;
     height: 100%;
     padding: 20px;
+    overflow: hidden;
 }
 
 .chat-message {
@@ -28,14 +29,32 @@
     color: white;
     border-radius: 10px;
     padding: 20px;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     margin: 0 0 120px 0;
     width: 100%;
-    height: 400px;
+    height: 450px;
     box-sizing: border-box;
 
     p {
-      text-align: center;
+      margin: 0;
+      padding: 0 10px 0 10px;
+      white-space: pre-wrap;
+      overflow-y: auto; /* p 태그에 스크롤 적용 */
+      height: 100%;
+        /* 스크롤바 스타일 */
+      &::-webkit-scrollbar {
+        width: 8px; /* 스크롤바 너비 */
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #cbcbcb; /* 스크롤바 색상 */
+        border-radius: 4px; /* 스크롤바 모서리 둥글게 */
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: #9a9a9a; /* 스크롤바 호버 색상 */
+      }
+      &::-webkit-scrollbar-track {
+        background-color: #333; /* 스크롤바 트랙 색상 */
+      }
     }
   }
   
@@ -44,7 +63,7 @@
     height: 150px;
     margin-right: 15px;
     border-radius: 50%;
-    margin: 220px 0 0 -20px;
+    margin: 270px -20px 0 -20px;
   }
   
   .chat-input {
