@@ -29,10 +29,6 @@ const Form: React.FC = () => {
     });
   };
 
-  const handleTagRemove = (tag: string) => {
-    setSelectedTags(selectedTags.filter((t) => t !== tag));
-  };
-
   const handleSubmit = () => {
     navigate("/chat");
   };
@@ -65,16 +61,7 @@ const Form: React.FC = () => {
               ) : (
                 selectedTags.map((tag) => (
                   <span key={tag} className={styles["tag"]}>
-                    {tag}{" "}
-                    <span
-                      className={styles["tag-remove"]}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleTagRemove(tag);
-                      }}
-                    >
-                      x
-                    </span>
+                    {tag}
                   </span>
                 ))
               )}

@@ -45,7 +45,7 @@ const Chat: React.FC = () => {
               <button 
                 className={`${styles['chat-button']} ${styles['secondary']}`}
                 onClick={handleRestart}>다시 하기</button>
-              <button className={styles['chat-button']} onClick={handleSubmit}>결과 보기</button>
+              <button className={styles['chat-button']} onClick={handleSubmit}>다음</button>
             </div>
           </div>
         </div>
