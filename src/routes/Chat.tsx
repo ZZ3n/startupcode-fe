@@ -45,9 +45,9 @@ const Chat: React.FC = () => {
         throw new Error("Network response was not ok " + response.statusText);
       }
       const responseData = await response.json();
-      addToChatList(responseData.chat_message);
+      addToChatList(responseData.body.chat_message);
       setCount(count + 1);
-      if (responseData.isend) {
+      if (responseData.body.isend) {
         navigate("/result");
       }
     } catch (error) {

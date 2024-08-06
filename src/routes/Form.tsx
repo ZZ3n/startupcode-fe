@@ -19,7 +19,7 @@ const Form: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [name, setName] = useState<string>("");
   const [people, setPeople] = useState<number | string>("");
-  const [age, setAge] = useState<number | string>(0);
+  const [age, setAge] = useState<number | string>("");
   const navigate = useNavigate();
 
   const handleRequestClose = (
@@ -40,8 +40,6 @@ const Form: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-    addToChatList("asdsafgggggg");
-    navigate("/chat");
     if (
       !name ||
       !people ||
@@ -65,13 +63,13 @@ const Form: React.FC = () => {
       const response = await axios.post("/api/user", requestData);
       if (response.data.code === 200) {
         toast.success(response.data.message);
-        setThreadId(response.data.thread_id);
-        addToChatList(response.data.chat_message);
+        setThreadId(response.data.body.thread_id);
+        addToChatList(response.data.body.chat_message);
         navigate("/chat");
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        toast.error(error.response.data.chat_message);
+        toast.error(error.response.data.message);
       } else {
         toast.error("An unexpected error occurred.");
       }
