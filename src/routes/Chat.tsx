@@ -34,7 +34,7 @@ const Chat: React.FC = () => {
     setCount(count + 1);
 
     try {
-      const response = await fetch("https://your-api-endpoint.com/api", {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
