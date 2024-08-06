@@ -75,13 +75,13 @@ const Chat: React.FC = () => {
         <div className="pc-background"></div>
         <div className={styles["chat-background"]}>
           <div className={styles["chat-container"]}>
-            {/* {messages.map((message, index) => ( */}
-            {/* <div key={index} className={styles["chat-message"]}> */}
+            <button className={styles["log-button"]} onClick={openModal}>
+              =
+            </button>
             <div className={styles["chat-message"]}>
               <img src={characterImage} alt="Character" />
               <p>{message}</p>
             </div>
-            {/* ))} */}
             <input
               type="text"
               className={styles["chat-input"]}
