@@ -5,6 +5,11 @@ import characterImage from "../assets/char.png";
 import useStore from "../store/store";
 import LogModal from "../components/modals/LogModal";
 
+interface ChatMessage {
+  role: 'user' | 'ai';
+  message: string;
+}
+
 const Chat: React.FC = () => {
   const [botCount, setBotCount] = useState<number>(0);
   const [userCount, setUserCount] = useState<number>(-1);
@@ -106,10 +111,10 @@ const Chat: React.FC = () => {
       <LogModal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
-        messages={bot_chat_list.map((msg, index) => ({
-          role: index % 2 === 0 ? "user" : "ai",
-          message: msg,
-        }))}
+        messages={[
+          ...user_chat_list.map((msg) => ({ role: "user", message: msg } as ChatMessage)),
+          ...bot_chat_list.map((msg) => ({ role: "ai", message: msg } as ChatMessage))
+        ]}
       />
     </div>
   );
