@@ -5,16 +5,16 @@ import characterImage from "../assets/char.png";
 import useStore from "../store/store";
 
 const Chat: React.FC = () => {
-  const [count, setCount] = useState<number>(0);
+  const [botCount, setBotCount] = useState<number>(0);
+  const [userCount, setUserCount] = useState<number>(0);
   const { thread_id, chat_list } = useStore();
-  const [message, setMessage] = useState<string>(chat_list[count]);
+  const [message, setMessage] = useState<string>(chat_list[botCount]);
 
   useEffect(() => {
-    setMessage(chat_list[count]);
-  }, [Math.floor(count / 2)]);
+    setMessage(chat_list[botCount]);
+  }, [botCount]);
 
   const addToChatList = useStore((state) => state.addToChatList);
-  // const thread_id = useStore((state) => state.thread_id);
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +30,7 @@ const Chat: React.FC = () => {
     };
 
     addToChatList(data.chat_message);
-    setCount(count + 1);
+    setUserCount(userCount + 1);
 
     try {
       const response = await fetch("/api/chat", {
@@ -45,7 +45,7 @@ const Chat: React.FC = () => {
       }
       const responseData = await response.json();
       addToChatList(responseData.body.chat_message);
-      setCount(count + 1);
+      setBotCount(botCount + 1);
       if (responseData.body.isend === "true") {
         navigate("/result");
       }
