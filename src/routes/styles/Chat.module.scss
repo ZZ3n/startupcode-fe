@@ -1,107 +1,106 @@
 /* Chat.module.scss */
 .chat-background {
-    background-image: url('../../assets/mobileBG.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  background-image: url("../../assets/mobileBG.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .chat-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 500px;
-    height: 100%;
-    padding: 20px;
-    overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  padding: 20px;
+  overflow: hidden;
 }
 
 .chat-message {
-    display: flex;
-    align-items: flex-start;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    border-radius: 10px;
-    padding: 20px;
-    font-size: 1.15rem;
-    margin: 0 0 120px 0;
-    width: 100%;
-    height: 450px;
-    box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 1.15rem;
+  margin: 0 0 120px 0;
+  width: 100%;
+  height: 450px;
+  box-sizing: border-box;
 
-    p {
-      margin: 0;
-      padding: 0 10px 0 10px;
-      white-space: pre-wrap;
-      overflow-y: auto; /* p 태그에 스크롤 적용 */
-      height: 100%;
-        /* 스크롤바 스타일 */
-      &::-webkit-scrollbar {
-        width: 8px; /* 스크롤바 너비 */
-      }
-      &::-webkit-scrollbar-thumb {
-        background-color: #cbcbcb; /* 스크롤바 색상 */
-        border-radius: 4px; /* 스크롤바 모서리 둥글게 */
-      }
-      &::-webkit-scrollbar-thumb:hover {
-        background-color: #9a9a9a; /* 스크롤바 호버 색상 */
-      }
-      &::-webkit-scrollbar-track {
-        background-color: #333; /* 스크롤바 트랙 색상 */
-      }
+  p {
+    margin: 0;
+    padding: 0 10px 0 10px;
+    white-space: pre-wrap;
+    overflow-y: auto; /* p 태그에 스크롤 적용 */
+    height: 100%;
+    /* 스크롤바 스타일 */
+    &::-webkit-scrollbar {
+      width: 8px; /* 스크롤바 너비 */
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #cbcbcb; /* 스크롤바 색상 */
+      border-radius: 4px; /* 스크롤바 모서리 둥글게 */
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: #9a9a9a; /* 스크롤바 호버 색상 */
+    }
+    &::-webkit-scrollbar-track {
+      background-color: #333; /* 스크롤바 트랙 색상 */
     }
   }
-  
-  .chat-message img {
-    width: 150px;
-    height: 150px;
-    margin-right: 15px;
-    border-radius: 50%;
-    margin: 270px -20px 0 -20px;
-  }
-  
-  .chat-input {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    border: none;
-    border-radius: 0.375rem;
-    padding: 15px 20px;
-    font-size: 1.25rem;
-    margin: 50px 0;
-    width: 100%;
-    box-sizing: border-box;
-  }
+}
+
+.chat-message img {
+  width: 150px;
+  height: 150px;
+  margin-right: 15px;
+  border-radius: 50%;
+  margin: 270px -20px 0 -20px;
+}
+
+.chat-input {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  padding: 15px 20px;
+  font-size: 1.25rem;
+  margin: 50px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
 
 .chat-button {
-    background-color: #28CB07;
-    color: white;
-    padding: 12px 10px; /* 버튼을 두껍고 길게 */
-    font-size: 1rem; /* 글꼴 크기 조정 */
-    border-radius: 0.375rem;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    margin: 16px 5px 0 5px;
-    cursor: pointer;
-    text-align: center;
-    display: inline-block;
-    width: 150px;
-    transition: background-color 0.3s;
-    border: none;
+  background-color: #9fd919;
+  color: white;
+  padding: 12px 10px; /* 버튼을 두껍고 길게 */
+  font-size: 1rem; /* 글꼴 크기 조정 */
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin: 16px 5px 0 5px;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  width: 150px;
+  transition: background-color 0.3s;
+  border: none;
 
-    &:hover {
-        background-color: #23b107;
-    }
+  &:hover {
+    background-color: #85b515;
+  }
 }
 .chat-button.secondary {
-    background-color: #FFA500;
-  
-    &:hover {
-      background-color: #e69500;
-    }
+  background-color: #ffa500;
+
+  &:hover {
+    background-color: #e69500;
   }
-  
+}

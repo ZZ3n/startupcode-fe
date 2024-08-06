@@ -1,14 +1,14 @@
 /* Result.module.scss */
 .result-background {
-    background-image: url('../../assets/mobileBG.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  background-image: url("../../assets/mobileBG.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .result-container {
   position: relative;
@@ -37,13 +37,13 @@
   font-size: 1rem;
   margin-bottom: 30px;
 
-  p{
+  p {
     margin: 5px 0 8px 0;
   }
 }
 
 .result-button {
-  background-color: #28CB07;
+  background-color: #9fd919;
   color: white;
   padding: 12px 50px;
   font-size: 1.25rem;
@@ -55,7 +55,7 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #23b107;
+    background-color: #85b515;
   }
 }
 
