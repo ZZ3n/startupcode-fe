@@ -1,0 +1,25 @@
+/* Button.module.scss */
+.back-button {
+  background-color: #9fd919;
+  color: white;
+  padding: 12px 50px;
+  font-size: 1rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  width: 80px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+  border: none;
+
+  &:hover {
+    background-color: #85b515;
+  }
+}
+
+.button-image {
+  width: 30px;
+  height: 30px;
+}

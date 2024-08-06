@@ -1,8 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles/Main.module.scss'; // SCSS 파일 import
 import characterImage from '../assets/char.png'; // 캐릭터 이미지 파일 경로 수정
 
 const Main: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    navigate('/form');
+  };
+
   return (
     <div className="background">
       <div className="pc-background"></div>
@@ -13,7 +20,9 @@ const Main: React.FC = () => {
             </div>
             <img src={characterImage} alt="Character" className={styles.character} />
         </div>
-        <button className={styles['start-button']}>
+        <button 
+          className={styles['start-button']}
+          onClick={handleSubmit}>
             시작하기
         </button>
         </div>
