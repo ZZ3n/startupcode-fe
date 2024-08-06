@@ -63,6 +63,24 @@ const Result: React.FC = () => {
                   "제주특별자치도 제주시 한림읍 협재리 2497-1"}
               </p>
               <p>전화번호: {resultData?.phone || "064-728-3981"}</p>
+              <p>현재 기온: {resultData?.temperature || "약 24°C"}</p>
+              <p>강수 확률: {resultData?.rainfallProbability || "낮음"}</p>
+              <p>
+                풍향:{" "}
+                {resultData?.windDirection || "약간의 바람 (해양 스포츠 가능)"}
+              </p>
+              <p>
+                자외선 지수:{" "}
+                {resultData?.uvIndex || "높음 (자외선 차단제 필수)"}
+              </p>
+              <p>
+                가능 액티비티:{" "}
+                {resultData?.activities || "바나나보트, 제트스키, 패들보드 등"}
+              </p>
+              <p>
+                편의시설:{" "}
+                {resultData?.facilities || "샤워 시설, 탈의실, 화장실"}
+              </p>
             </div>
             <button className={styles["result-button"]} onClick={handleHome}>
               홈으로

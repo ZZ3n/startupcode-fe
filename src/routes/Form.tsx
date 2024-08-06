@@ -14,8 +14,8 @@ const Form: React.FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [name, setName] = useState('');
-  const [people, setPeople] = useState('');
-  const [age, setAge] = useState('');
+  const [people, setPeople] = useState<number | ''>('');
+  const [age, setAge] = useState<number | ''>('');
   const navigate = useNavigate();
 
   const handleRequestClose = (
@@ -96,14 +96,14 @@ const Form: React.FC = () => {
               placeholder="인원"
               className={styles["form-field"]}
               value={people}
-              onChange={(e) => setPeople(e.target.value)}
+              onChange={(e) => setPeople(e.target.value ? Number(e.target.value) : '')}
             />
             <input
               type="text"
               placeholder="나이"
               className={styles["form-field"]}
               value={age}
-              onChange={(e) => setAge(e.target.value)}
+              onChange={(e) => setAge(e.target.value ? Number(e.target.value) : '')}
             />
             <div
               className={`${styles["form-field"]} ${styles["tag-input"]}`}
