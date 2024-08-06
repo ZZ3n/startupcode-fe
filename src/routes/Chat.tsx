@@ -20,12 +20,12 @@ const Chat: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    setMessage(bot_chat_list[botCount]);
-  }, [botCount]);
+    setMessage(bot_chat_list[botCount] || "");
+  }, [botCount, bot_chat_list]);
 
   useEffect(() => {
-    setMessage(bot_chat_list[0]);
-  }, []);
+    setMessage(bot_chat_list[0] || "");
+  }, [bot_chat_list]);
 
   const [inputValue, setInputValue] = useState<string>("");
 
@@ -66,6 +66,26 @@ const Chat: React.FC = () => {
       console.error("Error:", error);
       // 요청이 실패한 경우 navigate를 호출하지 않음
     }
+    //   try {
+    //     // 목 데이터 사용
+    //     const response = {
+    //       data: {
+    //         body: {
+    //           chat_message: "목 데이터로부터의 응답입니다.",
+    //           isend: "false"
+    //         }
+    //       }
+    //     };
+
+    //     addToBotChatList(response.data.body.chat_message);
+    //     setBotCount(botCount + 1);
+    //     if (response.data.body.isend === "true") {
+    //       navigate("/result");
+    //     }
+    //   } catch (error) {
+    //     console.error("Error:", error);
+    //   }
+    // };
   };
 
   const handleRestart = () => {
@@ -78,6 +98,21 @@ const Chat: React.FC = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const combineMessages = () => {
+    const combined: ChatMessage[] = [];
+    const maxLength = Math.max(user_chat_list.length, bot_chat_list.length);
+
+    for (let i = 0; i < maxLength; i++) {
+      if (i < bot_chat_list.length) {
+        combined.push({ role: "ai", message: bot_chat_list[i] });
+      }
+      if (i < user_chat_list.length) {
+        combined.push({ role: "user", message: user_chat_list[i] });
+      }
+    }
+    return combined;
   };
   return (
     <div>
@@ -116,14 +151,7 @@ const Chat: React.FC = () => {
       <LogModal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
-        messages={[
-          ...user_chat_list.map(
-            (msg) => ({ role: "user", message: msg } as ChatMessage)
-          ),
-          ...bot_chat_list.map(
-            (msg) => ({ role: "ai", message: msg } as ChatMessage)
-          ),
-        ]}
+        messages={combineMessages()}
       />
     </div>
   );
