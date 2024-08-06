@@ -11,16 +11,15 @@ import styles from "./styles/Form.module.scss";
 import useStore from "../store/store";
 
 const Form: React.FC = () => {
-  const [count, setCount] = useState<Number>(0);
   const setThreadId = useStore((state) => state.setThreadId);
   const addToChatList = useStore((state) => state.addToChatList);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [name, setName] = useState("");
-  const [people, setPeople] = useState("");
-  const [age, setAge] = useState("");
+  const [name, setName] = useState<string>("");
+  const [people, setPeople] = useState<number | string>("");
+  const [age, setAge] = useState<number | string>(0);
   const navigate = useNavigate();
 
   const handleRequestClose = (
@@ -67,12 +66,12 @@ const Form: React.FC = () => {
       if (response.data.code === 200) {
         toast.success(response.data.message);
         setThreadId(response.data.thread_id);
-        addToChatList(response.data.message);
+        addToChatList(response.data.chat_message);
         navigate("/chat");
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        toast.error(error.response.data.message);
+        toast.error(error.response.data.chat_message);
       } else {
         toast.error("An unexpected error occurred.");
       }

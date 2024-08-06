@@ -11,16 +11,11 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     setMessage(chat_list[count]);
-  }, [count]);
+  }, [Math.floor(count / 2)]);
 
   const setThreadId = useStore((state) => state.setThreadId);
   const addToChatList = useStore((state) => state.addToChatList);
   // const thread_id = useStore((state) => state.thread_id);
-
-  const handleThreadChange = (id: string) => {
-    setThreadId(id);
-  };
-
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,8 +27,11 @@ const Chat: React.FC = () => {
   const handleSubmit = async () => {
     const data = {
       thread_id: thread_id,
-      message: inputValue,
+      chat_message: inputValue,
     };
+
+    addToChatList(data.chat_message);
+    setCount(count + 1);
 
     try {
       const response = await fetch("https://your-api-endpoint.com/api", {
@@ -43,19 +41,15 @@ const Chat: React.FC = () => {
         },
         body: JSON.stringify(data),
       });
-
       if (!response.ok) {
         throw new Error("Network response was not ok " + response.statusText);
       }
-
       const responseData = await response.json();
-      console.log("Success:", responseData);
-
-      setThreadId(responseData.thread_id);
-      addToChatList(responseData.message);
-
-      // 요청이 성공한 경우에만 navigate 호출
-      navigate("/result");
+      addToChatList(responseData.chat_message);
+      setCount(count + 1);
+      if (responseData.isend) {
+        navigate("/result");
+      }
     } catch (error) {
       console.error("Error:", error);
       // 요청이 실패한 경우 navigate를 호출하지 않음
